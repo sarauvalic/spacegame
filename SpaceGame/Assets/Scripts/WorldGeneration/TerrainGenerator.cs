@@ -52,13 +52,15 @@ namespace SpaceGame.WorldGeneration
 				var tilePos = Vector3.Scale(coords, settings.TileScale);
 				
 				CreateTile(tilePos);
-				//CreateTile(coords.x, coords.z, tilePos,bounds,ruleTile, angle);
+				//CreateTile(coords.x, coords.z, tilePos, bounds, ruleTile, angle);
 			}
 		}
 
-		private bool AllRulesFulfilled(Vector3Int coords)   //(VolumetricMapData volumetricMapData, Vector3Int coords, RuleTile ruleTile, out int Angle)
+		private bool AllRulesFulfilled(/*VolumetricMapData volumetricMapData,*/ Vector3Int coords, RuleTile ruleTile, out int Angle)
 		{
 			//TODO: check if rules for tile is fulfilled
+
+			Angle = 0;
 			return true;
 		}
 
