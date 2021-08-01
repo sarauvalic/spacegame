@@ -13,18 +13,24 @@ namespace SpaceGame.Helpers
         public bool combineButton;
         public void CombineChildMeshes()
         {
-            MeshFilter[] meshFilters = GetComponentsInChildren<MeshFilter>();
+            MeshFilter[] temp = GetComponentsInChildren<MeshFilter>();
+            MeshFilter[] meshFilters = new MeshFilter[temp.Length - 1];
+			for (int i = 0; i < meshFilters.Length; i++)
+			{
+                meshFilters[i] = temp[i + 1];
+			}
             CombineInstance[] combine = new CombineInstance[meshFilters.Length];
 
-            int i = 0;
-            while (i < meshFilters.Length)
-            {
-                combine[i].mesh = meshFilters[i].sharedMesh;
-                combine[i].transform = meshFilters[i].transform.localToWorldMatrix;
+			for (int i = 0; i < meshFilters.Length; i++)
+			{
+                combine[i] = new CombineInstance
+                {
+                    mesh = meshFilters[i].sharedMesh,
+                    transform = meshFilters[i].transform.localToWorldMatrix
+                };
                 meshFilters[i].gameObject.SetActive(false);
-
-                i++;
             }
+			
             transform.GetComponent<MeshFilter>().mesh = new Mesh();
             transform.GetComponent<MeshFilter>().sharedMesh.CombineMeshes(combine);
             transform.gameObject.SetActive(true);
